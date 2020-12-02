@@ -33,12 +33,16 @@ readInterface.on('close', function() {
 function findProduct(targetSum, index) {
 
     var product = -1;
+
+    loop1:
     for (i = index+1; i<expenses.length-1; i++) {
         
+        loop2:
         for (j=index+2; j<expenses.length; j++) {
             
             if (expenses[i] + expenses[j] == targetSum) {
                 product = expenses[i] * expenses[j];
+                break loop1;
             }
 
         }        
