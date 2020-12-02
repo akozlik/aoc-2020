@@ -25,7 +25,7 @@ var part2 = input.passwords.filter((v, i) => {
     var input = parseInput(v);
     var first = input.password[input.min-1];
     var last = input.password[input.max-1];
-    return (first != last && (first == input.character || last == input.character))
+    return (first != last && (first === input.character || last === input.character))
 });
 
 console.log("Part 2: " + part2.length);
