@@ -9,7 +9,7 @@ input.passwords.forEach((v, i) => {
         count++;
     }
 });
-console.log("Count: " + count);
+console.log("Part 1 Looped: " + count);
 
 var temp = input.passwords.filter((v, i) => {
     var input = parseInput(v);
@@ -18,7 +18,17 @@ var temp = input.passwords.filter((v, i) => {
     return (newPassword.length >= input.min && newPassword.length <= input.max) 
 });
 
-console.log("Count: " + temp.length);
+console.log("Part 1 Filtered: " + temp.length);
+
+count = 0;
+var part2 = input.passwords.filter((v, i) => {
+    var input = parseInput(v);
+    var first = input.password[input.min-1];
+    var last = input.password[input.max-1];
+    return (first != last && (first == input.character || last == input.character))
+});
+
+console.log("Part 2: " + part2.length);
 
 function parseInput(input) {
     var temp = input.split(" ");
