@@ -8,12 +8,6 @@ const readInterface = readline.createInterface({
     console: false
 });
 
-var passportValid = 0b11111111; // 255
-var passportNorthPole = 0b11111110; // 254
-
-var expenses = [];
-var passport = 0b000000;
-
 var bitmap = {
     "byr": 0b10000000, // (Birth Year)
     "iyr": 0b01000000, // (Issue Year)
@@ -47,7 +41,7 @@ readInterface.on('line', function(line) {
 readInterface.on('close', function() {
     // Get that last passport
     input.push(passportData);
-    
+
     part1();
     part2();
 });
@@ -56,13 +50,16 @@ readInterface.on('close', function() {
 function part1() {
 
     for (i=0; i<input.length; i++) {
-        passport = 0b00000000;
+        var passport = 0b00000000;
 
         input[i].forEach((v, i) => {
-            component = v.match(regexPattern);    
+            component = v.match(regexPattern);
+
+            // Bitwise operation will flag the corresponding bit if it's valid
             passport |= bitmap[component[1]];
         });
 
+        // These map to 0b11111111 and 0b11111110 from our bitwise operations
         if (passport == 255 || passport == 254) {
             validPassports.push(input[i]);
         }        
@@ -76,12 +73,13 @@ function part2() {
     var count = 0;
 
     for (i=0; i<validPassports.length; i++) {
+
         var passport = validPassports[i];
 
         var passportValid = true;
 
         for (j = 0; j<passport.length; j++) {
-            // console.log(j);
+            
             var parts = passport[j].match(regexPattern);
             var fieldName = parts[1];
             var fieldValue = parts[2];
@@ -96,7 +94,7 @@ function part2() {
         if (passportValid) count++;
     }
 
-    console.log(count + " valid passports part 2");
+    console.log(count + " valid passports in part 2");
 }
 
 function fieldIsValid(field, value) {
@@ -125,7 +123,6 @@ function fieldIsValid(field, value) {
 
         return false;
     }
-
     else if (field === "hcl") {// (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
         var color = /^#[0-9a-f]{6}$/
         return (value.match(color) != null) ? true : false;
