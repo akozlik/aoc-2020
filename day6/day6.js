@@ -2,16 +2,8 @@ const readline = require("readline");
 const fs = require("fs");
 
 var input = [];
-
-const readInterface = readline.createInterface({
-    input: fs.createReadStream('./input.txt'),
-    console: false
-});
-
-var input = [];
-
-var questionData = "";
 var group = [];
+var questionData = "";
 
 function removeDuplicates(string) {
 
@@ -21,6 +13,11 @@ function removeDuplicates(string) {
     
     return string;
 }
+
+const readInterface = readline.createInterface({
+    input: fs.createReadStream('./input.txt'),
+    console: false
+});
 
 readInterface.on('line', function(line) {
 
