@@ -2,7 +2,6 @@ const readline = require("readline");
 const fs = require("fs");
 
 var rules = [];
-var count = 0;
 
 const readInterface = readline.createInterface({
     input: fs.createReadStream('./input.txt'),
@@ -35,19 +34,19 @@ readInterface.on('line', function(line) {
 readInterface.on('close', function() {
     // Get that last passport
     part1();
-    console.log("Sum: " + count);
     part2();
 });
 
 var counts = [];
 function part1() {
-    findContainingBags("shiny gold");
+    var total = findContainingBags("shiny gold");
+    console.log("Part 1 Total: " + total);
 }
 
 function part2() {
     var numBags = findNumberOfBagsContainedBy("shiny gold"); 
     numBags--; 
-    console.log("Total Number of Bags: " + numBags);
+    console.log("Part 2 Total: " + numBags);
 }
 function findNumberOfBagsContainedBy(bagName) {
     
@@ -73,6 +72,8 @@ function findNumberOfBagsContainedBy(bagName) {
 
 function findContainingBags(bagName) {
    
+    var total = 0;
+
     for (var i=0; i<rules.length; i++) {
         var bag = rules[i];
         var edgeString = bag.edges.join(" ");
@@ -82,10 +83,12 @@ function findContainingBags(bagName) {
 
             if (rules[i].visited == false) {
                 rules[i].visited = true;
-                count++;
+                total++;
             }
 
-            findContainingBags(bag.name);            
+            total += findContainingBags(bag.name);            
         }
     }
+
+    return total;
 }
