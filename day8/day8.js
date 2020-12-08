@@ -60,9 +60,6 @@ function part1() {
 
 function part2(visited) {
 
-    var acc = 0;
-    var idx = 0;
-    
     // Build a list of only the nop and jmp commands
     var filtered = visited.filter((v) => {
         var instruction = instructions[v];
@@ -80,8 +77,8 @@ function part2(visited) {
         instruction.opcode = (instruction.opcode == "nop") ? "jmp" : "nop";
         instructions[filteredIndex] = instruction;
 
-        acc = 0;
-        idx = 0;
+        var acc = 0;
+        var idx = 0;
         visited = [];
 
         // Loop through the program
