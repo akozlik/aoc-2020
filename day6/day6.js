@@ -7,12 +7,16 @@ var questionData = "";
 
 function removeDuplicates(string) {
 
+    console.log(string);
     string = string.split('').sort().filter((v, i, self) => {            
+        console.log(self);
+        console.log(v + " " + i);
         return self.indexOf(v) == i;
     });
     
     return string;
 }
+
 
 const readInterface = readline.createInterface({
     input: fs.createReadStream('./input.txt'),
