@@ -23,17 +23,17 @@ readInterface.on('line', function(line) {
 
 readInterface.on('close', function() {
     // Get that last passport
-    part1();
-    part2();
+    var visited = part1();
+    part2(visited);
 });
 
 
 function part1() {
 
     var acc = 0;
-    var idx = 0;
-    var visited = [];
+    var idx = 0;    
 
+    var visited = [];
     while (!visited.includes(idx)) {
     
         var instruction = instructions[idx];
@@ -54,33 +54,14 @@ function part1() {
     }
 
     console.log("Part 1: " + acc);
+
+    return visited;
 }
 
-function part2() {
+function part2(visited) {
 
     var acc = 0;
     var idx = 0;
-    var visited = [];
-
-    // Loop through and get all the visited instructions
-    while (!visited.includes(idx)) {
-    
-        var instruction = instructions[idx];
-
-        visited.push(idx);
-        switch (instruction.opcode) {
-            case "nop":
-                idx++;
-                break;
-            case "acc":
-                acc += parseInt(instruction.value);
-                idx++;
-                break;
-            case "jmp":
-                idx += instruction.value // Adjust for next iteration
-                break;
-        }
-    }
     
     // Build a list of only the nop and jmp commands
     var filtered = visited.filter((v) => {
