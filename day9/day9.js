@@ -4,7 +4,7 @@ const fs = require("fs");
 var input = [];
 
 const readInterface = readline.createInterface({
-    input: fs.createReadStream('./input.txt'),
+    input: fs.createReadStream('./sample.txt'),
     console: false
 });
 
@@ -16,7 +16,7 @@ readInterface.on('line', function(line) {
 
 readInterface.on('close', function() {
     // Get that last passport
-
+    console.log(input);
     var invalid = part1();
     console.log("Part 1: " + invalid);
     // console.log("GOT: " + invalid);
@@ -24,8 +24,7 @@ readInterface.on('close', function() {
     console.log("Part 2: " + sum);
 });
 
-const SAMPLE_SIZE = 25;
-
+const SAMPLE_SIZE = 5;
 function part1() {
 
     var target;
@@ -36,7 +35,7 @@ function part1() {
         
         var valid = false;
         for (var j=0; j<sumgroup.length-1; j++) {
-            var sum = sumgroup[j] + sumgroup[k]
+            
             for (var k=j+1; k<sumgroup.length; k++) {
                 var sum = sumgroup[j] + sumgroup[k]
                 if (sum == target) {
